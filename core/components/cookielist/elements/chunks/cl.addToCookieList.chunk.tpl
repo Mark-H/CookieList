@@ -1,0 +1,1 @@
+<a href="[[+link]]" title="[[+label]]">[[+label]]</a>
