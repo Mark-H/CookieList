@@ -19,6 +19,7 @@ $cookielist = $modx->getService('cookielist','CookieList',$corePath.'model/');
 
 $cookie = $cookielist->cookiename;
 $c = $_COOKIE[$cookie];
+$duration = $modx->getOption('cookielist.duration') ? $modx->getOption('cookielist.duration') : 3600;
 
 /**
 * Sets a cookie to test cookie support
@@ -70,7 +71,7 @@ if($addValue || $removeValue) {
     $url = $cookielist->url($error);
     // Creates/updates the cookie and its value
     $value = implode(',', $cookieValues);
-    setcookie($cookieName, $value, 0, '', false, false);
+    setcookie($cookieName, $value, (time() + $duration), '', false, false);
     $modx->sendRedirect($url);
 }
 
