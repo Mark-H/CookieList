@@ -58,7 +58,7 @@ class CookieList {
 
         $this->modx->lexicon->load('cookielist:default');
 
-        $this->cookiename = $modx->getOption('cookielist.cookie_name') ? $modx->getOption('cookielist.cookie_name') : 'cookieList';
+        $this->cookiename = $modx->getOption('cookielist.cookie.name') ? $modx->getOption('cookielist.cookie.name') : 'cookieList';
     }
 
     /**
