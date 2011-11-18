@@ -22,8 +22,8 @@ set_time_limit(0);
 /* define package */
 define('PKG_NAME','CookieList');
 define('PKG_NAME_LOWER',strtolower(PKG_NAME));
-define('PKG_VERSION','0.9.1');
-define('PKG_RELEASE','dev2');
+define('PKG_VERSION','0.9.9');
+define('PKG_RELEASE','dev4');
 
 $root = dirname(dirname(__FILE__)).'/';
 $sources= array (
@@ -64,6 +64,29 @@ $category->set('id',1);
 $category->set('category',PKG_NAME);
 $modx->log(modX::LOG_LEVEL_INFO,'Packaged in category.'); flush();
 
+/* add plugins */
+$plugins = include $sources['data'].'transport.plugins.php';
+if (!is_array($plugins)) { $modx->log(modX::LOG_LEVEL_FATAL,'Adding plugins failed.'); }
+$attributes= array(
+    xPDOTransport::UNIQUE_KEY => 'name',
+    xPDOTransport::PRESERVE_KEYS => false,
+    xPDOTransport::UPDATE_OBJECT => true,
+    xPDOTransport::RELATED_OBJECTS => true,
+    xPDOTransport::RELATED_OBJECT_ATTRIBUTES => array (
+        'PluginEvents' => array(
+            xPDOTransport::PRESERVE_KEYS => true,
+            xPDOTransport::UPDATE_OBJECT => false,
+            xPDOTransport::UNIQUE_KEY => array('pluginid','event'),
+        ),
+    ),
+);
+foreach ($plugins as $plugin) {
+    $vehicle = $builder->createVehicle($plugin, $attributes);
+    $builder->putVehicle($vehicle);
+}
+$modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($plugins).' plugins.'); flush();
+unset($plugins,$plugin,$attributes);
+
 /* add snippets */
 $snippets = include $sources['data'].'transport.snippets.php';
 if (is_array($snippets)) {
@@ -71,10 +94,6 @@ if (is_array($snippets)) {
 } else { $modx->log(modX::LOG_LEVEL_FATAL,'Adding snippets failed.'); }
 $modx->log(modX::LOG_LEVEL_INFO,'Packaged in '.count($snippets).' snippets.'); flush();
 unset($snippets);
-
-/* Add actions */
-require_once ($sources['data'].'transport.actions.php');
-$modx->log(modX::LOG_LEVEL_INFO,'Packaged in actions');
 
 /* create category vehicle */
 $attr = array(

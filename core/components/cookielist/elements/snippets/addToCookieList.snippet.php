@@ -10,10 +10,13 @@ $corePath = $modx->getOption('cookielist.core_path',null,$modx->getOption('core_
 $cookielist = $modx->getService('cookielist','CookieList',$corePath.'model/');
 
 /* Set up the properties to be used */
-$value = $modx->getOption('value',$scriptProperties,$modx->resource->id);
+$value = $modx->getOption('value',$scriptProperties);
 $tpl = $modx->getOption('tpl',$scriptProperties,'cl.addToCookieList');
-$addText = $modx->getOption('addText',$scriptProperties,$modx->lexicon('cookielist.add_text'));
-$removeText = $modx->getOption('removeText',$scriptProperties,$modx->lexicon('cookielist.remove_text'));
+$addText = $modx->getOption('addText',$scriptProperties);
+$removeText = $modx->getOption('removeText',$scriptProperties);
+if (empty($value)) $value = $modx->resource->id;
+if (empty($addText)) $addText = $modx->lexicon('cookielist.add_text');
+if (empty($removeText)) $removeText = $modx->lexicon('cookielist.remove_text');
 $cookie = $cookielist->cookiename;
 
 $c = $_COOKIE[$cookie];
@@ -23,13 +26,13 @@ if(in_array($value, $cookieValues)) {
     // We already have this item in the wishlist
     $label = $removeText;
     $params = array(
-        'cl_remove' => $value,
+        CookieList::removeParam => $value,
     );
 } else {
     // Item is not yet in the list
     $label = $addText;
     $params = array(
-        'cl_add' => $value,
+        CookieList::addParam => $value,
     );
 }
 

@@ -28,6 +28,8 @@ class CookieList {
     private $chunks = array();
 
     public $cookiename;
+    const addParam = 'cl_add';
+    const removeParam = 'cl_remove';
     /**
      * Main CookieList constructor for setting up configuration etc.
      *
@@ -129,18 +131,22 @@ class CookieList {
     }
 
     /**
-    * @param $uri
-    * @return string - the $_GET queries without the ones created by addToCookieList
-    */
-    function cleanParams($uri) {
+     * @param $uri
+     * @param bool $error
+     * @return string - the $_GET queries without the ones created by addToCookieList
+     */
+    function cleanParams($uri, $error = false) {
         $params = array();
         $elements = explode('/', $uri);
         $total = count($elements) -1;
         $queries = explode('&', str_replace('?', '', $elements[$total]));
         foreach($queries as $query) {
             // @TODO: support for anchors (#anchor)
-            if(strstr($query, $_GET['cl_add']) || strstr($query, $_GET['cl_remove'])) continue;
+            if(strstr($query, 'cl_add') || strstr($query, 'cl_remove') || strstr($query,'cl_error')) continue;
             $params[] = $query;
+        }
+        if ($error) {
+            $params[] = 'cl_error=1';
         }
         $elements[$total] = implode('&', $params);
         if($elements[$total]) {
@@ -151,13 +157,14 @@ class CookieList {
     }
 
     /**
-    * @return string - url to sendRedirect to (referer)
-    */
-    function url() {
+     * @param bool $error
+     * @return string - url to sendRedirect to (referer)
+     */
+    function url($error = false) {
         $s = empty($_SERVER['HTTPS']) ? '' : 's';
         $protocol = $this->strleft(strtolower($_SERVER['SERVER_PROTOCOL']), '/').$s;
         $port = $_SERVER['SERVER_PORT'] == '80' ? '' : $_SERVER['SERVER_PORT'];
-        $params = $this->cleanParams($_SERVER['REQUEST_URI']);
+        $params = $this->cleanParams($_SERVER['REQUEST_URI'],$error);
         return $protocol.'://'.$_SERVER['SERVER_NAME'].$port.$params;
     }
 
