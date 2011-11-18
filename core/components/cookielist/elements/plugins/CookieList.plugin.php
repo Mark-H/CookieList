@@ -71,7 +71,8 @@ if($addValue || $removeValue) {
     $url = $cookielist->url($error);
     // Creates/updates the cookie and its value
     $value = implode(',', $cookieValues);
-    setcookie($cookieName, $value, (time() + $duration), '', false, false);
+    $duration = time() + $modx->getOption('cookielist.cookie.duration',null,2592000);
+    setcookie($cookieName, $value, $duration, '', false, false);
     $modx->sendRedirect($url);
 }
 
