@@ -26,6 +26,7 @@ $c = $_COOKIE[$cookie];
 if(!$c['cl_check']) {
     setcookie($cookie."[cl_check]", 1, 0, '', false, false);
 }
+if ($_GET['cl_error']) $modx->setPlaceholder('cookielist.error',$modx->lexicon('cookielist.err.no_cookies'));
 
 /* Set up the add/remove params. Could be configurable in a future release? */
 $addParam = CookieList::addParam;
@@ -65,12 +66,8 @@ if($removeValue) {
 * back to the listing.
 */
 if($addValue || $removeValue) {
-    if (!$c['cl_check']) {
-        $url = $cookielist->url(true);
-        $modx->setPlaceholder('cookielist.error',$modx->lexicon('cookielist.err.no_cookies'));
-    } else {
-        $url = $cookielist->url();
-    }
+    $error = (isset($c['cl_check'])) ? false : true;
+    $url = $cookielist->url($error);
     // Creates/updates the cookie and its value
     $value = implode(',', $cookieValues);
     setcookie($cookieName, $value, 0, '', false, false);

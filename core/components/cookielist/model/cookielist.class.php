@@ -136,24 +136,22 @@ class CookieList {
      * @return string - the $_GET queries without the ones created by addToCookieList
      */
     function cleanParams($uri, $error = false) {
-        $params = array();
-        $elements = explode('/', $uri);
-        $total = count($elements) -1;
-        $queries = explode('&', str_replace('?', '', $elements[$total]));
-        foreach($queries as $query) {
-            // @TODO: support for anchors (#anchor)
-            if(strstr($query, 'cl_add') || strstr($query, 'cl_remove') || strstr($query,'cl_error')) continue;
-            $params[] = $query;
-        }
+		$uri = str_replace(
+			array(
+				CookieList::addParam.'='.$_GET[CookieList::addParam],
+				CookieList::removeParam.'='.$_GET[CookieList::removeParam],
+				'cl_error=1'
+			),
+			'',
+			$uri
+		);
+		$uri = str_replace(array('&&','?&'),array('&','?'),$uri);
+		$uri = trim($uri,'?&');
         if ($error) {
-            $params[] = 'cl_error=1';
+            if (strstr($uri,'?')) $uri .= '&cl_error=1';
+            else $uri .= '?cl_error=1';
         }
-        $elements[$total] = implode('&', $params);
-        if($elements[$total]) {
-            $elements[$total] = '?'.$elements[$total];
-        }
-        $queries = implode('/', $elements);
-        return $queries;
+        return $uri;
     }
 
     /**
