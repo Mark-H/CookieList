@@ -115,7 +115,7 @@ class CookieList {
     */
     private function _getTplChunk($name,$postFix = '.tpl') {
         $chunk = false;
-        $f = $this->config['elements_path'].'chunks/'.strtolower($name).$postFix;
+        $f = $this->config['elements_path'].'chunks/'.$name.$postFix;
         if (file_exists($f)) {
             $o = file_get_contents($f);
             /* @var modChunk $chunk */
