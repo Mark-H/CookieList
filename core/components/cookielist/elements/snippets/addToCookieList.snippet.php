@@ -14,9 +14,9 @@ $value = $modx->getOption('value',$scriptProperties);
 $tpl = $modx->getOption('tpl',$scriptProperties,'cl.addToCookieList');
 $addText = $modx->getOption('addText',$scriptProperties);
 $removeText = $modx->getOption('removeText',$scriptProperties);
-if (empty($value)) $value = $modx->resource->id;
-if (empty($addText)) $addText = $modx->lexicon('cookielist.add_text');
-if (empty($removeText)) $removeText = $modx->lexicon('cookielist.remove_text');
+if (empty($value)) {$value = $modx->resource->id;}
+if (empty($addText)) {$addText = $modx->lexicon('cookielist.add_text');}
+if (empty($removeText)) {$removeText = $modx->lexicon('cookielist.remove_text');}
 $cookie = $cookielist->cookiename;
 
 $c = $_COOKIE[$cookie];
