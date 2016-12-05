@@ -161,7 +161,7 @@ class CookieList {
     function url($error = false) {
         $s = empty($_SERVER['HTTPS']) ? '' : 's';
         $protocol = $this->strleft(strtolower($_SERVER['SERVER_PROTOCOL']), '/').$s;
-        $port = $_SERVER['SERVER_PORT'] == '80' ? '' : $_SERVER['SERVER_PORT'];
+        $port = $_SERVER['SERVER_PORT'] == '80' ? '' : ':'.$_SERVER['SERVER_PORT'];
         $params = $this->cleanParams($_SERVER['REQUEST_URI'],$error);
         return $protocol.'://'.$_SERVER['SERVER_NAME'].$port.$params;
     }
