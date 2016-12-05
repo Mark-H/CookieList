@@ -24,7 +24,7 @@ $c = $_COOKIE[$cookie];
 * Sets a cookie to test cookie support
 */
 if(!$c['cl_check']) {
-    setcookie($cookie."[cl_check]", 1, 0, '', false, false);
+    setcookie($cookie."[cl_check]", 1, 0, '/', false, false);
 }
 if ($_GET['cl_error']) $modx->setPlaceholder('cookielist.error',$modx->lexicon('cookielist.err.no_cookies'));
 
@@ -71,7 +71,7 @@ if($addValue || $removeValue) {
     // Creates/updates the cookie and its value
     $value = implode(',', $cookieValues);
     $duration = time() + $modx->getOption('cookielist.cookie.duration',null,2592000);
-    setcookie($cookieName, $value, $duration, '', false, false);
+    setcookie($cookieName, $value, $duration, '/', false, false);
     $modx->sendRedirect($url);
 }
 
