@@ -1,1 +1,1 @@
-<a href="[[+link]]" title="[[+label]]">[[+label]]</a>
+<a href="[[+link]]" title="[[+label:htmlent]]">[[+label:htmlent]]</a>
