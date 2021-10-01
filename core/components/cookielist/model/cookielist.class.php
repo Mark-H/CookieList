@@ -30,14 +30,14 @@ class CookieList {
     public $cookiename;
     const addParam = 'cl_add';
     const removeParam = 'cl_remove';
+
     /**
      * Main CookieList constructor for setting up configuration etc.
      *
-     * @param \modX $modx
+     * @param modX $modx
      * @param array $config
-     * @return \CookieList
      */
-    function __construct(modX &$modx,array $config = array()) {
+    public function __construct(modX &$modx,array $config = array()) {
         $this->modx =& $modx;
  
         $basePath = $this->modx->getOption('cookielist.core_path',$config,$this->modx->getOption('core_path').'components/cookielist/');
@@ -126,7 +126,7 @@ class CookieList {
         return $chunk;
     }
 
-    function strleft($s1, $s2) {
+    public function strleft($s1, $s2) {
         return substr($s1, 0, strpos($s1, $s2));
     }
 
@@ -135,7 +135,7 @@ class CookieList {
      * @param bool $error
      * @return string - the $_GET queries without the ones created by addToCookieList
      */
-    function cleanParams($uri, $error = false) {
+    public function cleanParams($uri, $error = false) {
 		$uri = str_replace(
 			array(
 				CookieList::addParam.'='.$_GET[CookieList::addParam],
@@ -158,7 +158,7 @@ class CookieList {
      * @param bool $error
      * @return string - url to sendRedirect to (referer)
      */
-    function url($error = false) {
+    public function url($error = false) {
         $s = empty($_SERVER['HTTPS']) ? '' : 's';
         $protocol = $this->strleft(strtolower($_SERVER['SERVER_PROTOCOL']), '/').$s;
         $port = $_SERVER['SERVER_PORT'] == '80' ? '' : ':'.$_SERVER['SERVER_PORT'];
