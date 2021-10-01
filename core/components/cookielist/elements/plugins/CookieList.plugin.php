@@ -18,6 +18,10 @@ if ($modx->context->get('key') == 'mgr') {
 /* Get the CookieList class */
 $corePath = $modx->getOption('cookielist.core_path', null, $modx->getOption('core_path') . 'components/cookielist/');
 $cookielist = $modx->getService('cookielist', 'CookieList', $corePath . 'model/');
+if (!$cookielist) {
+    $modx->log(modX::LOG_LEVEL_ERROR, 'Failed initializing CookieList in the CookieList plugin');
+    return;
+}
 
 $cookie = $cookielist->cookiename;
 $c = $_COOKIE[$cookie];
