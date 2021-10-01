@@ -22,11 +22,16 @@ $cookielist = $modx->getService('cookielist', 'CookieList', $corePath . 'model/'
 $cookie = $cookielist->cookiename;
 $c = $_COOKIE[$cookie];
 
+$cookiePath = $modx->getOption('session_cookie_path', null, '/');
+$cookieDomain = $modx->getOption('session_cookie_domain', null, '');
+$cookieSecure = (bool)$modx->getOption('session_cookie_secure', null, false); // default false for BC reasons; CookieList 1.0 specifically hardcoded false
+$cookieHttpOnly = (bool)$modx->getOption('session_cookie_httponly', null, false); // default false for BC reasons; CookieList 1.0 specifically hardcoded false
+
 /**
  * Sets a cookie to test cookie support
  */
 if (!$c['cl_check']) {
-    setcookie($cookie . "[cl_check]", 1, 0, '', false, false);
+    setcookie($cookie . "[cl_check]", 1, 0, $cookiePath, $cookieDomain, $cookieSecure, $cookieHttpOnly);
 }
 if ($_GET['cl_error']) {
     $modx->setPlaceholder('cookielist.error', $modx->lexicon('cookielist.err.no_cookies'));
@@ -78,7 +83,7 @@ if ($addValue || $removeValue) {
     // Creates/updates the cookie and its value
     $value = implode(',', $cookieValues);
     $duration = time() + $modx->getOption('cookielist.cookie.duration', null, 2592000);
-    setcookie($cookieName, $value, $duration, '', false, false);
+    setcookie($cookieName, $value, $duration, $cookiePath, $cookieDomain, $cookieSecure, $cookieHttpOnly);
     $modx->sendRedirect($url);
 }
 

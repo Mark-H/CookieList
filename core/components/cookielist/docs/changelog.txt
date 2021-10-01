@@ -1,3 +1,5 @@
+- Re-use the Session Cookie system settings to determine cookie path, domain, secure and httponly flags [#1, #7]
+
 ++++++++++++++++++++++++++++++++++++
 ++                                ++
 ++    CookieList 1.0.0-pl         ++
