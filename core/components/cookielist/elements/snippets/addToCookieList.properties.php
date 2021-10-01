@@ -1,7 +1,7 @@
 <?php
-return array(
+return [
     'addText' => '',
     'removeText' => '',
     'value' => '',
     'tpl' => 'cl.addToCookieList',
-);
+];
