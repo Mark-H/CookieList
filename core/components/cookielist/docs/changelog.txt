@@ -1,12 +1,15 @@
+CookieList 1.1.0-pl
+-------------------
+Released on 2021-10-01
+
+- Fix URL generation missing colon before the port on non-standard ports [#6]
+- Fix URL generation including the port on HTTPS [#8]
 - Re-use the Session Cookie system settings to determine cookie path, domain, secure and httponly flags [#1, #7]
 - Default addToCookieList snippet now applies the htmlent output modifier to the [[+label]] to avoid admin-created XSS
 - Prevent fatal error if CookieList service can't be loaded
 
-++++++++++++++++++++++++++++++++++++
-++                                ++
-++    CookieList 1.0.0-pl         ++
-++         Released: 18-11-2011   ++
-++                                ++
-++++++++++++++++++++++++++++++++++++
+CookieList 1.0.0-pl
+-------------------
+Released on 2011-11-18
 
 First public release.

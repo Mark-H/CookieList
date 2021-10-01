@@ -1,10 +1,10 @@
 <?php
-$s = array(
+$s = [
     'cookie.duration' => 2592000,
     'cookie.name' => 'cookieList',
-);
+];
 
-$settings = array();
+$settings = [];
 
 foreach ($s as $key => $value) {
     if (is_string($value) || is_int($value)) { $type = 'textfield'; }
@@ -14,12 +14,12 @@ foreach ($s as $key => $value) {
     $area = 'default';
     $settings['cookielist.'.$key] = $modx->newObject('modSystemSetting');
     $settings['cookielist.'.$key]->set('key', 'cookielist.'.$key);
-    $settings['cookielist.'.$key]->fromArray(array(
+    $settings['cookielist.'.$key]->fromArray([
         'value' => $value,
         'xtype' => $type,
         'namespace' => 'cookielist',
         'area' => $area
-    ));
+    ]);
 }
 
 return $settings;

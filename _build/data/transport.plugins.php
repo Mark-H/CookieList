@@ -12,11 +12,11 @@ $plugins[0]->set('category', 0);
 $events = array();
 
 $events['OnHandleRequest']= $modx->newObject('modPluginEvent');
-$events['OnHandleRequest']->fromArray(array(
+$events['OnHandleRequest']->fromArray([
     'event' => 'OnHandleRequest',
     'priority' => 0,
     'propertyset' => 0,
-),'',true,true);
+],'',true,true);
 
 if (is_array($events) && !empty($events)) {
     $plugins[0]->addMany($events);

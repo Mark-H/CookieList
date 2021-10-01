@@ -7,3 +7,7 @@ It comes with a snippet that generates a configurable Add to / Remove from wishl
 h2. Credits
 
 CookieList was originally developed by Romain Tripault of "Melting Media":http://www.melting-media.com/ to be included with the "bdListings Extra":https://github.com/Mark-H/bdListings. Since then it has been abstracted into a seperate addon, to enable others of using it for different targets as well.
+
+h2. Documentation
+
+https://docs.modx.com/current/en/extras/cookielist
